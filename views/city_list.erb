@@ -1,0 +1,12 @@
+<h4>List of Cities</h4>
+
+<% if @city_list.length > 0%>
+  <ul>
+    <% @city_list.each do |city| %>
+      <li><a href="/city_info/<%= city.name %>"><%= city.name %></a></li>
+    <% end  %>
+  </ul>
+
+<% else %>
+  <p>Sorry no list available</p>
+<% end %>

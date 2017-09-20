@@ -18,13 +18,24 @@ class Train
   def self.train_array(arr)
     trains = []
     arr.each() do |train|
-      name = train.fetch("name")
-      city = train.fetch("city")
-      time = train.fetch("time")
-      id = train.fetch("id")
-      trains.push(Train.new({:id => id, :name => name, :city => city, :time => time}))
-    end
+        name = train.fetch("name")
+        city = train.fetch("city")
+        time = train.fetch("time")
+        id = train.fetch("id")
+        trains.push(Train.new({:id => id, :name => name, :city => city, :time => time}))
+      end
+    
     trains
+  end
+
+  def self.unique_name_list(arr)
+    lists =[]
+    arr.each do |list|
+      if !lists.include?(list.name)
+        lists.push(list.name)
+      end
+    end
+    lists
   end
 
   def self.all
@@ -35,6 +46,10 @@ class Train
   def self.find_train(city)
     train_info = DB.exec("SELECT * FROM train WHERE city = '#{city}';")
     self.train_array(train_info)
+  end
+
+  def self.find_train_by_name(name)
+    train_info = DB.exec("SELECT * FROM train WHERE name = '#{name}';")
   end
 
   def ==(another_train)

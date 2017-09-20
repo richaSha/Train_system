@@ -1,0 +1,13 @@
+<a href="/">Home</a>
+<h4><%= @train_info[0]["name"] %></h4>
+
+<% @train_info.each do |info| %>
+  <br>
+  <p>City: <%= info["city"] %></p>
+  <p>Time: <%= info["time"] %></p>
+  <br>
+  <hr>
+<% end %>
+<form action="/new_train_info" method="post">
+
+</form>

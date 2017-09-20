@@ -1,9 +1,9 @@
+<a href="/">Home</a>
 <h4>List of Trains</h4>
-
-<% if @train_list.length > 0%>
+<% if @train_name_lists.length > 0 %>
   <ul>
-    <% @train_list.each do |train| %>
-      <li><a href="/train_info>"><%= train.name %></a></li>
+    <% @train_name_lists.each do |name| %>
+      <li><a href="/train_info/<%= name %>"><%= name %></a></li>
     <% end  %>
   </ul>
 

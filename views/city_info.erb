@@ -1,0 +1,14 @@
+<a href="/">Home</a>
+<h4><%= @city %></h4>
+
+<% if @city_info.length > 0 %>
+  <% @city_info.each do |info| %>
+    <br>
+    <p>Train: <%= info.name %></p>
+    <p>Time: <%= info.time %></p>
+    <br>
+    <hr>
+  <% end %>
+<% else %>
+  <p>Sorry no train stop here</p>
+<% end %>
