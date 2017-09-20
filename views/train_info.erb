@@ -8,6 +8,17 @@
   <br>
   <hr>
 <% end %>
-<form action="/new_train_info" method="post">
-
+<h4>Add new information to <%= @train_info[0]["name"] %></h4>
+<form action="/new_train_info/<%= @train_info[0]["name"] %>" method="post">
+  <div class="input-group">
+    <span class="input-group-addon">City</span>
+    <input id="msg" type="text" class="form-control" name="city" placeholder="Enter City Name">
+  </div>
+  <br>
+  <div class="input-group">
+    <span class="input-group-addon">Time</span>
+    <input id="msg" type="text" class="form-control" name="time" placeholder="Enter Train Time">
+  </div>
+  <br>
+  <button type="submit" class="btn btn-success">Add</button>
 </form>

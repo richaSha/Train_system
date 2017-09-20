@@ -10,3 +10,22 @@
 <% else %>
   <p>Sorry no list available</p>
 <% end %>
+<h4>Add new train information</h4>
+<form action="/new_train_list" method="post">
+  <div class="input-group">
+    <span class="input-group-addon">Train</span>
+    <input id="msg" type="text" class="form-control" name="train" placeholder="Enter Train Name">
+  </div>
+  <br>
+  <div class="input-group">
+    <span class="input-group-addon">City</span>
+    <input id="msg" type="text" class="form-control" name="city" placeholder="Enter City Name">
+  </div>
+  <br>
+  <div class="input-group">
+    <span class="input-group-addon">Time</span>
+    <input id="msg" type="text" class="form-control" name="time" placeholder="Enter Train Time">
+  </div>
+  <br>
+  <button type="submit" class="btn btn-success">Add</button>
+</form>

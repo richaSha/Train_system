@@ -21,7 +21,7 @@ class City
   end
 
   def save()
-    result = DB.exec("INSERT INTO city (name) VALUES ('#{name}';) RETURNING id;")
+    result = DB.exec("INSERT INTO city (name) VALUES ('#{name}') RETURNING id;")
     @id = result.first().fetch("id")
   end
 
