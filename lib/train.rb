@@ -10,15 +10,14 @@ class Train
     @time = (attributes.key?(:time) ? attributes.fetch(:time) : nil)
   end
 
-
   def save()
-    @id = DB.exec("INSERT INTO train (name, city, time) VALUES ('#{name}', '#{city}', '#{time}') RETURNING id;")
+    result = DB.exec("INSERT INTO train (name, city, time) VALUES ('#{name}', '#{city}', '#{time}') RETURNING id;")
+    @id = result.first().fetch("id")
   end
 
-  def self.all
-    returned_trains = DB.exec("SELECT * FROM train;")
+  def self.train_array(arr)
     trains = []
-    returned_trains.each() do |train|
+    arr.each() do |train|
       name = train.fetch("name")
       city = train.fetch("city")
       time = train.fetch("time")
@@ -26,5 +25,19 @@ class Train
       trains.push(Train.new({:id => id, :name => name, :city => city, :time => time}))
     end
     trains
+  end
+
+  def self.all
+    returned_trains = DB.exec("SELECT * FROM train;")
+    self.train_array(returned_trains)
+  end
+
+  def self.find_train(city)
+    train_info = DB.exec("SELECT * FROM train WHERE city = '#{city}';")
+    self.train_array(train_info)
+  end
+
+  def ==(another_train)
+    self.name().==(another_train.name()).&(self.city().==(another_train.city())).&(self.time().==(another_train.time()))
   end
 end

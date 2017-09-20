@@ -1,0 +1,12 @@
+<h4>List of Trains</h4>
+
+<% if @train_list.length > 0%>
+  <ul>
+    <% @train_list.each do |train| %>
+      <li><a href="/train_info>"><%= train.name %></a></li>
+    <% end  %>
+  </ul>
+
+<% else %>
+  <p>Sorry no list available</p>
+<% end %>
