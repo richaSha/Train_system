@@ -1,6 +1,6 @@
 <a href="/">Home</a>
 
-<h4><%= @city %></h4>
+<h2><%= @city %></h2>
 <div class="row">
 
     <% if @city_info.length > 0 %>
@@ -11,9 +11,10 @@
         </div>
         <div class="col-sm-2">
           <button type="button" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-pencil"></span> <a href="/edit/<%= @city %>/<%= info.name %>">Edit</a>
+            <span class="glyphicon glyphicon-pencil"></span> <a href="/edit_city/<%= @city %>/<%= info.name %>">Edit</a>
           </button>
-          <form class="" action="/" method="post">
+          <form  action="/" method="post" class="delete">
+            <input type="hidden" name="action" value="city">
             <input type="hidden" name="time" value="<%= info.time %>">
             <input type="hidden" name="train" value=" <%= info.name %>">
             <input type="hidden" name="city" value="<%= @city %>">

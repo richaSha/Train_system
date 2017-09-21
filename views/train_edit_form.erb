@@ -1,13 +1,13 @@
-<h2><%= @city%> edit form</h2>
+<h2><%= @train%> edit form</h2>
 <form class="" action="/" method="post">
   <input type="hidden" name="_method" value="patch">
 
     <div class="input-group">
       <span class="input-group-addon">Train</span>
-      <input type="hidden" name="action" value="city">
+      <input type="hidden" name="action" value="train">
       <input type="hidden" name="old_city" value="<%= @city%>">
       <input type="hidden" name="old_name" value="<%= @train %>">
-      <input id="msg" type="text" class="form-control" name="train" placeholder="Enter new Train">
+      <input id="msg" type="text" class="form-control" name="city" placeholder="Enter new city">
     </div>
     <br>
     <div class="input-group">
