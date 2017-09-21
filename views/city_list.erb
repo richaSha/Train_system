@@ -1,21 +1,28 @@
+<div id="logout">
+  <h4><span id="current-user"><%= @currentuser%></span><a href="/logout/<%= @currentuser%> ">Logout</a></h4>
+</div>
 <h2>List of Cities</h2>
 
 <% if @city_list.length > 0%>
   <ul>
     <% @city_list.each do |city| %>
-      <li><a href="/city_info/<%= city.name %>"><%= city.name %></a></li>
+      <li><a href="/city_info/<%= city %>"><%= city %></a></li>
     <% end  %>
   </ul>
 
 <% else %>
   <p>Sorry no list available</p>
 <% end %>
-<h4>Add new city information</h4>
-<form action="/new_city_list" method="post">
-  <div class="input-group">
-    <span class="input-group-addon">City</span>
-    <input id="msg" type="text" class="form-control" name="city" placeholder="Enter City Name">
-  </div>
-  <br>
-  <button type="submit" class="btn btn-success">Add</button>
-</form>
+<% if @currentuser == "Admin" %>
+
+  <h4>Add new city information</h4>
+  <form action="/new_city_list" method="post">
+    <div class="input-group">
+      <span class="input-group-addon">City</span>
+      <input id="msg" type="text" class="form-control" name="city" placeholder="Enter City Name">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-success">Add</button>
+  </form>
+
+<% end %>

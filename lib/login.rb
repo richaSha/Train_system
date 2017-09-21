@@ -35,11 +35,20 @@ class Login
 
   def self.find_current_user()
     result = DB.exec("SELECT username FROM login_info WHERE currentuser = true;")
-    result[0]['username']
+    if result.cmd_tuples != 0
+      return result[0]['username']
+    else
+      return nil
+    end
   end
 
   def self.logout(username)
-    DB.exec("UPDATE login_info SET currentuser = false WHERE username = '#{username}';")
+    if username == "Admin"
+      DB.exec("DELETE FROM login_info WHERE username = 'Admin';")
+    else
+
+      DB.exec("UPDATE login_info SET currentuser = false WHERE username = '#{username}';")
+    end
   end
 
   def self.is_username_unique?(username)

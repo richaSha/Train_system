@@ -2,11 +2,9 @@
   <form name="myForm1" class="login_form " action="/"
 onsubmit="return validateLoginForm()" method="post">
     <h4>LogIn Form</h4>
-    <% if @error %>
-      <div class="alert alert-danger">
-        <strong><%=@error%></strong>
+      <div class="alert">
+        <strong class="login-error"><%=@error%></strong>
       </div>
-    <%end%>
     <input type="hidden" name="data" value="login">
     <input type="text" class="form-control login_user" name="user" placeholder="User Name">
     <br>
@@ -20,8 +18,8 @@ onsubmit="return validateLoginForm()" method="post">
   <form name="myForm" class="signup_form hide" action="/"
 onsubmit="return validateForm()" method="post">
     <h4>SignUp Form</h4>
-    <div class="alert alert-danger">
-      <strong><%=@error%></strong>
+    <div class="alert">
+      <strong class="signup-error"><%=@error%></strong>
     </div>
     <input type="hidden" name="data" value="signup">
     <input type="text" class="form-control new_user_name" name="user" placeholder="User Name">

@@ -39,4 +39,14 @@ class City
     self.name().==(another_city.name())
   end
 
+  def self.unique_name_list(arr)
+    lists =[]
+    arr.each do |list|
+      if !lists.include?(list.name)
+        lists.push(list.name)
+      end
+    end
+    lists
+  end
+
 end

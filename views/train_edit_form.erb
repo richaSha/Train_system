@@ -1,9 +1,13 @@
+
+<div id="logout">
+  <h4><span id="current-user"><%= @currentuser%></span><a href="/logout/<%= @currentuser%> ">Logout</a></h4>
+</div>
 <h2><%= @train%> edit form</h2>
 <form class="" action="/" method="post">
   <input type="hidden" name="_method" value="patch">
 
     <div class="input-group">
-      <span class="input-group-addon">Train</span>
+      <span class="input-group-addon">City</span>
       <input type="hidden" name="action" value="train">
       <input type="hidden" name="old_city" value="<%= @city%>">
       <input type="hidden" name="old_name" value="<%= @train %>">

@@ -6,6 +6,7 @@ function validateForm() {
     alert("false")
     return false;
   } else {
+    $('.signup-error').text() = "Sorry invalid credentials";
     return true;
   }
 }
@@ -14,13 +15,15 @@ function validateLoginForm() {
   user_name = $('.login_user').val().trim();
   password = $('.login_password').val().trim();
   if ((password =="") || (user_name== "")){
-    alert("false")
     return false;
   } else {
+    $('.login-error').text() = "Sorry invalid credentials";
     return true;
   }
 }
 $(document).ready(function(){
+  
+
   $('.container-fluid').css('height' , $(window).height()- $('.jumbotron').innerHeight());
 
   $('.new_user').click(function(){
@@ -28,7 +31,9 @@ $(document).ready(function(){
     $('.login_form').toggleClass("hide")
   })
   $('.form-control').focus(function(){
-    $('.alert-danger').addClass('hideItem');
+    $('.login-error').text() = "";
+    $('.signup-error').text() = "";
+    $('.alert').addClass('hideItem');
   })
 
 })

@@ -8,19 +8,25 @@ require("pg")
 require("pry")
 
 DB = PG.connect({:dbname => "train_system"})
-
 get("/") do
-  erb(:login)
+  @currentuser = Login.find_current_user()
+  if @currentuser == nil
+    erb(:login)
+  else
+    erb(:index)
+  end
 end
 
 post("/") do
-  user_name = params.fetch("user")
-  password = params.fetch("password")
+  user_name = params.fetch("user").strip
+  password = params.fetch("password").strip
   action = params.fetch("data")
   if action == "login"
     is_admin = Login.is_admin?(user_name,password)
     if is_admin
       @currentuser = 'Admin'
+      new_user = Login.new({:username => @currentuser, :password => '123snow_richa', :currentuser => true})
+      new_user.save()
       erb(:index)
     else
       result = Login.is_creditial_exist?(user_name,password)
@@ -55,23 +61,28 @@ end
 get('/train_list') do
   train_list = Train.all()
   @train_name_lists = Train.unique_name_list(train_list)
+  @currentuser = Login.find_current_user()
   erb(:train_list)
 end
 
 get('/city_list') do
-  @city_list = City.all()
+  city = City.all()
+  @city_list = City.unique_name_list(city)
+  @currentuser = Login.find_current_user()
   erb(:city_list)
 end
 
 get('/train_info/:name') do
   name = params[:name]
   @train_info = Train.find_train_by_name(name)
+  @currentuser = Login.find_current_user()
   erb(:train_info)
 end
 
 get('/city_info/:name') do
   @city = params[:name]
   @city_info = Train.find_train(@city)
+  @currentuser = Login.find_current_user()
   erb(:city_info)
 end
 
@@ -82,6 +93,7 @@ post('/new_train_info/:name') do
   train_object = Train.new({:name => name, :city => city, :time => time})
   train_object.save()
   @train_info = Train.find_train_by_name(name)
+  @currentuser = Login.find_current_user()
   erb(:train_info)
 end
 
@@ -93,6 +105,7 @@ post('/new_train_list') do
   train_object.save()
   train_list = Train.all()
   @train_name_lists = Train.unique_name_list(train_list)
+  @currentuser = Login.find_current_user()
   erb(:train_list)
 end
 
@@ -100,23 +113,28 @@ post('/new_city_list') do
   city = params.fetch("city")
   city_obj = City.new({:name => city})
   city_obj.save()
-  @city_list = City.all()
+  city = City.all()
+  @city_list = City.unique_name_list(city)
+  @currentuser = Login.find_current_user()
   erb(:city_list)
 end
 
 get('/edit_city/:city/:train') do
   @city = params[:city]
   @train = params[:train]
+  @currentuser = Login.find_current_user()
   erb(:city_edit_form)
 end
 
 get('/edit_train/:city/:train') do
   @city = params[:city]
   @train = params[:train]
+  @currentuser = Login.find_current_user()
   erb(:train_edit_form)
 end
 
 patch("/") do
+  @currentuser = Login.find_current_user()
   if params.fetch('action') == "city"
     @city = params.fetch('old_city')
     train = params.fetch('old_name')
@@ -137,22 +155,40 @@ patch("/") do
 end
 
 delete("/") do
+  @currentuser = Login.find_current_user()
   time = params.fetch('time')
   city = params.fetch('city')
   train = params.fetch('train')
   Train.delete_info({:train => train, :city => city, :time => time})
   if params.fetch('action') == "city"
-    @city_list = City.all()
+    city = City.all()
+    @city_list = City.unique_name_list(city)
     erb(:city_list)
   elsif params.fetch('action') == "train"
     train_list = Train.all()
     @train_name_lists = Train.unique_name_list(train_list)
     erb(:train_list)
   end
+end
 
-  get('/ticket') do
-    @train_list = Train.all()
+get('/ticket') do
+    @showTrain = false
+    @currentuser = Login.find_current_user()
+    city = City.all()
+    @city_list = City.unique_name_list(city)
     erb(:ticket)
-  end
+end
 
+post('/find_train') do
+  @currentuser = Login.find_current_user()
+  @showTrain = true
+  @city = params.fetch('city')
+  @train_list = Train.find_train(@city)
+  erb(:ticket)
+end
+
+post('/buy-ticket') do
+  @currentuser = Login.find_current_user()
+  @success = "Ticket is purchased!"
+  erb(:index)
 end

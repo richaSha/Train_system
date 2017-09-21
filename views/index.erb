@@ -1,10 +1,13 @@
 <div id="logout">
-  <h4><%= @currentuser%>  <a href="/logout/<%= @currentuser%> ">Logout</a></h4>
+  <h4><span id="current-user"><%= @currentuser%></span><a href="/logout/<%= @currentuser%> ">Logout</a></h4>
 </div>
 
 <ul class="breadcrumb">
   <li><a href="/">Home</a></li>
 </ul>
+<div class="alert">
+  <strong class="success"><%= @success  %></strong>
+</div>
 <button type="button" class="btn"><a href="/train_list">Train Info</a></button>
 <button type="button" class="btn"><a href="/city_list">City Info</a></button>
-<button type="button" class="btn"><a href="/city_list">Ticket Booking</a></button>
+<button type="button" class="btn"><a href="/ticket">Ticket Booking</a></button>

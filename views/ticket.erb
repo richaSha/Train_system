@@ -1,0 +1,48 @@
+<div id="logout">
+  <h4><span id="current-user"><%= @currentuser%></span><a href="/logout/<%= @currentuser%> ">Logout</a></h4>
+</div>
+<h2>Ticketing</h2>
+
+<% if @showTrain == true %>
+<form class="" action="/buy-ticket" method="post">
+  <div class="input-group">
+      <span class="input-group-addon">Cities</span>
+      <select class="form-control" name="city-name">
+          <option><%= @city %></option>
+      </select>
+  </div>
+  <br>
+  <div class="input-group">
+      <span class="input-group-addon">Train</span>
+      <select class="form-control" name="train">
+        <% if @train_list.length > 0 %>
+          <% @train_list.each do |train| %>
+            <option><%= train.name %></option>
+          <% end %>
+        <% else %>
+          <option>No train available</option>
+        <% end %>
+      </select>
+      <br>
+  </div>
+  <br>
+
+  <% if @train_list.length > 0 %>
+    <p>* Ticket Price $5</p>
+    <button type="submit" class="btn btn-primary">Buy Ticket</button>
+  <% end %>
+</form>
+<% elsif @showTrain == false %>
+<form class="" action="/find_train" method="post">
+  <div class="input-group">
+      <span class="input-group-addon">Cities</span>
+      <select class="form-control" name="city">
+        <% @city_list.each do |city| %>
+          <option><%= city %></option>
+        <% end %>
+      </select>
+  </div>
+  <br>
+    <button type="submit" class="btn btn-primary">Find Train</button>
+</form>
+<% end %>
