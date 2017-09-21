@@ -3,6 +3,7 @@ require("sinatra/reloader")
 also_reload("lib/**/*.rb")
 require("./lib/train")
 require("./lib/city")
+require("./lib/login")
 require("pg")
 require("pry")
 
@@ -13,15 +14,42 @@ get("/") do
 end
 
 post("/") do
-  usr_name = params.fetch("usr")
+  user_name = params.fetch("user")
   password = params.fetch("password")
   action = params.fetch("data")
   if action == "login"
-
+    is_admin = Login.is_admin?(user_name,password)
+    if is_admin
+      @currentuser = 'Admin'
+      erb(:index)
+    else
+      result = Login.is_creditial_exist?(user_name,password)
+      if result
+        @currentuser = Login.find_current_user()
+        erb(:index)
+      else
+        @error = "Sorry credentials does not match"
+        erb(:login)
+      end
+    end
   elsif action == "signup"
-    password2 = params.fetch("confirm_password")
+    is_available = Login.is_username_unique?(user_name)
+    if is_available
+      new_user = Login.new({:username => user_name, :password => password, :currentuser => true})
+      new_user.save()
+      @currentuser = Login.find_current_user()
+      erb(:index)
+    else
+      @error = "Sorry User Name is not available"
+      erb(:login)
+    end
   end
-  erb(:index)
+
+end
+
+get('/logout/:user') do
+  Login.logout(params[:user])
+  erb(:login)
 end
 
 get('/train_list') do

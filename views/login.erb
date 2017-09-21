@@ -1,24 +1,34 @@
 <div class="well well-lg">
-  <form class="login_form" method="post" action="/">
+  <form name="myForm1" class="login_form " action="/"
+onsubmit="return validateLoginForm()" method="post">
     <h4>LogIn Form</h4>
+    <% if @error %>
+      <div class="alert alert-danger">
+        <strong><%=@error%></strong>
+      </div>
+    <%end%>
     <input type="hidden" name="data" value="login">
-    <input type="text" class="form-control" name="usr" placeholder="User Name">
+    <input type="text" class="form-control login_user" name="user" placeholder="User Name">
     <br>
-    <input type="password" class="form-control" name="password" placeholder="Password">
+    <input type="password" class="form-control login_password" name="password" placeholder="Password">
     <br>
     <button type="submit" class="btn btn-success">LogIn</button>
     <br>
     <hr>
     <p>New user?   <a href="#" class="new_user"><b>SignUp</b></a></p>
   </form>
-  <form class="signup_form hide" method="post" action="/">
+  <form name="myForm" class="signup_form hide" action="/"
+onsubmit="return validateForm()" method="post">
     <h4>SignUp Form</h4>
-    <input type="hidden" name="data" value="sinup">
-    <input type="text" class="form-control" name="usr" placeholder="User Name">
+    <div class="alert alert-danger">
+      <strong><%=@error%></strong>
+    </div>
+    <input type="hidden" name="data" value="signup">
+    <input type="text" class="form-control new_user_name" name="user" placeholder="User Name">
     <br>
-    <input type="text" class="form-control" name="password" placeholder="Password">
+    <input type="password" class="form-control signup_password" name="password" placeholder="Password">
     <br>
-    <input type="text" class="form-control" name="confirm_password" placeholder="Confirm Password">
+    <input type="password" class="form-control confirm_password" name="confirm_password" placeholder="Confirm Password">
     <br>
     <button type="submit" class="btn btn-success">SignUp</button>
     <br>

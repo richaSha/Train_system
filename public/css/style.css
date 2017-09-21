@@ -26,7 +26,15 @@ hr {
   border-top: 1px solid #8ea1af !important;
 }
 .hide {
-  display: none;
+ display: none;
+}
+.hideItem{
+  visibility: hidden;
+}
+#logout {
+  position: absolute;
+  top: 0;
+  right: 12px;
 }
 li{
   list-style: inside circle;
